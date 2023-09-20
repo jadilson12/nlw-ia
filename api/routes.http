@@ -1,0 +1,37 @@
+# @name get-prompts
+GET http://127.0.0.1:3333/prompts
+
+###
+
+# @name upload
+POST http://127.0.0.1:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.mp3"
+Content-Type: audio/mpeg
+
+< ./example.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name create-transcription
+POST http://localhost:3333/video/e6a26386-3170-417b-833b-81247be13e03/transcription
+Content-Type: application/json
+
+{
+  "prompt": "XIaomi, celular "
+}
+
+###
+
+# @name generate-Ai-Completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+  "vidioId": "e6a26386-3170-417b-833b-81247be13e03",
+  "prompt": "Gere um resumo sucinto da transcrição do vídeo  informando a seguir: '''{transcription}}'''",
+  "temperature": 0.5
+}
